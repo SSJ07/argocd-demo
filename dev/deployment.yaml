@@ -3,10 +3,18 @@ kind: Deployment
 metadata:
   name: myapp-deployment
 spec:
-  replicas: 5
   selector:
     matchLabels:
       app: myapp
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 10
   template:
     metadata:
       labels:
